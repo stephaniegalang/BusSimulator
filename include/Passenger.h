@@ -7,7 +7,12 @@
 
 
 class Passenger {
-
+private:
+    // TODO
+public:
+    int dest;
+    int nextStop;
+    // Other Stuff
 };
 
 
