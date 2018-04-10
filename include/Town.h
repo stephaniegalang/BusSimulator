@@ -13,7 +13,7 @@ using namespace std;
  class Town {
  private:
      int basePop;
-     int curentPop; // TODO: Suggestion: make this public? or add incPop and decPop fcn -s.g.
+     int curentPop;
      double startProb; //likelihood of passenger spawning here at a given time (poisson distribution?)
 
      // TODO: Suggestion: Store list of roads and best paths to connected towns? -s.g.
@@ -35,7 +35,7 @@ using namespace std;
      // Town ID:
      const int townID;
 
-     Town(int id, int* connections, int numConnections, int _basePop, double _startProb);
+     Town(int id, int* connectedTowns, int numConnectedTowns, vector<Edge*> routes, int _basePop, double _startProb);
      void addPassenger(Passenger pass);
      //pull passengers from departure queue (in another town) into this town
      //void movePassengers(queue<Passenger*> &departures, int numPass );
@@ -50,6 +50,7 @@ using namespace std;
      void addRoad();
      // Build or refresh fastestPathToTown fwding table
      void refreshTraffic();
+     int getNextNode(int destID);//used by passenger to get next node
 
      // TODO: End Suggestion
 

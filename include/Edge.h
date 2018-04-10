@@ -11,7 +11,7 @@ private:
     double baseDuration;  //original time it takes to travel on this edge, minutes
     int startTownID;
     int endTownID;
-    int edgeID;      //identifier for this edge
+    int edgeID;      //TODO combine into one ordered pair for start town and end town, public const
     double duration; //actual time it takes to travel on this edge, minutes
     int busCount;    //number of buses operating on this edge, both ways
 
@@ -52,7 +52,7 @@ public:
     bool hasAccessTo(int originID, int destID){ //function to check if this edge can take a bus from the town with origin ID to the town with destination ID
         if((startTownID == originID)){
             if ((endTownID == destID)){
-                return true;
+                return true; //todo delete this
             }
         }
         return false;

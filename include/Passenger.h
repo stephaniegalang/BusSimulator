@@ -25,7 +25,7 @@ class Passenger {
         // void decideOrigin(); Do this in town, then pass in ID
 
         //below fcn is glitching out, should be void but believes my move fcn returns an int?
-        int move(); //Must be called right as town sends passenger to new town; finds final speed + add to travel time, update nextStop/origin, update population in town,
+        void move(); //Must be called right as town sends passenger to new town; finds final speed + add to travel time, update nextStop/origin, update population in town,
         int getNextStop();
         int getDest();
 

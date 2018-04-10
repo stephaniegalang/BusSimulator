@@ -25,19 +25,19 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
 
 }
 
-Passenger::move(){
+void Passenger::move(){
     //TODO: update movement conditions based on town and edge class updates
-    //      travelTime += (path.at(path.end() + 0)).getTime(); // update time travelled from edge's travel time
+    //      travelTime += (path.at(path.end() + 0)).getDuration(); // update time travelled from edge's travel time
     //      origin = (path.at(path.end() + 0)).getEndTown(); //
     //      path.pop_back(); // remove road travelled from path
-    //      town.incPop(); // update new town's population
+    //      town.incPop(); // update new town's population // dont in town
 }
 
-Passenger::getNextStop(){
+int Passenger::getNextStop(){
     //return (path.at(path.end() + 0)).getEndTown();
     return 3;
 }
 
-Passenger::getDest(){
+int Passenger::getDest(){
     return dest;
 }
