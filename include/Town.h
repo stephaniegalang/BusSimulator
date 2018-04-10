@@ -13,8 +13,13 @@ using namespace std;
  class Town {
  private:
      int basePop;
-     int curentPop;
+     int curentPop; // TODO: Suggestion: make this public? or add incPop and decPop fcn -s.g.
      double startProb; //likelihood of passenger spawning here at a given time (poisson distribution?)
+
+     // TODO: Suggestion: Store list of roads and best paths to connected towns? -s.g.
+     std::vector<Edge*> roadsFromTown;
+     std::vector<vector<int>> fastestPathToTown; // Could I be responsible for routing table alg? notes on alg in passenger.cpp -s.g.
+     // TODO: End Suggestion
 
      //Set of queues for each destination
      //     Keys are ints, one associated with each town
@@ -39,6 +44,14 @@ using namespace std;
      void TESTmovePeople(Town* target){
          //target->movePassengers(destinationQueues[target->townID],3);
      };
+
+     // TODO: Suggestions: add fcns to build list of edges out of town and a fwding table with fastest routes -s.g.
+     // Add road to list of roads
+     void addRoad();
+     // Build or refresh fastestPathToTown fwding table
+     void refreshTraffic();
+
+     // TODO: End Suggestion
 
 };
 

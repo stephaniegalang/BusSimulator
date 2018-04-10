@@ -20,7 +20,7 @@ void Town::addPassenger(Passenger* pass) {
         throw invalid_argument("Passenger's next stop is not accessible from this town");
     destinationQueues[pass->nextStop].push(pass);
 }
-// DOES NOT WORK; DOES NOT UPDATE PASSENGER'S NEXT STOP
+// DOES NOT WORK; DOES NOT UPDATE PASSENGER'S NEXT STOP // Sounds more realistic to have passenger implement this -s.g.
 /*
 void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
     for (int i=0; i<numPass && !departures.empty(); i++){
