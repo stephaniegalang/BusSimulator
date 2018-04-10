@@ -36,7 +36,7 @@ using namespace std;
      const int townID;
 
      Town(int id, int* connections, int numConnections, int _basePop, double _startProb);
-     void addPassenger(Passenger* pass);
+     void addPassenger(Passenger pass);
      //pull passengers from departure queue (in another town) into this town
      //void movePassengers(queue<Passenger*> &departures, int numPass );
 

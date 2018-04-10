@@ -3,6 +3,7 @@
 #include "Town.h"
 #include "Edge.h"
 #include "Bus.h"
+#include "Passenger.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl<<"I'm testing Git." << std::endl;
@@ -12,12 +13,17 @@ int main() {
     int conn2[]={1,4,3};
 
     Town town1(1,conn1,3,10,.5);
-    town1.addPassenger(new Passenger{3,2});
+    Passenger pass1(3);
+    Passenger pass2(1);
+    Passenger pass3(3);
+    Passenger pass4(3);
+
+    town1.addPassenger(pass1);
 
     Town town2(2,conn2,3,10,.5);
-    town2.addPassenger(new Passenger{1,1});
-    town2.addPassenger(new Passenger{3,1});
-    town2.addPassenger(new Passenger{3,4});
+    town2.addPassenger(pass2);
+    town2.addPassenger(pass3);
+    town2.addPassenger(pass4);
 
     Bus redRoute(1, 40, 1);
     Bus blueRoute(2, 35, 2);

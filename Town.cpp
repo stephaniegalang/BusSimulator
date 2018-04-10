@@ -14,11 +14,10 @@ townID{id}, basePop{_basePop}, startProb{_startProb}{
     }
 }
 
-void Town::addPassenger(Passenger* pass) {
-    cout<<townID<<" Adding passenger. Next stop: "<<pass->nextStop<<endl;
-    if(!destinationQueues.count(pass->nextStop))
+void Town::addPassenger(Passenger pass) {
+    cout<<townID<<" Adding passenger. Next stop: "<<pass.getNextStop() <<endl;
+    if(!destinationQueues.count(pass.getNextStop()))
         throw invalid_argument("Passenger's next stop is not accessible from this town");
-    destinationQueues[pass->nextStop].push(pass);
 }
 // DOES NOT WORK; DOES NOT UPDATE PASSENGER'S NEXT STOP // Sounds more realistic to have passenger implement this -s.g.
 /*

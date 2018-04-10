@@ -34,7 +34,8 @@ Passenger::move(){
 }
 
 Passenger::getNextStop(){
-    return (path.at(path.end() + 0)).getEndTown();
+    //return (path.at(path.end() + 0)).getEndTown();
+    return 3;
 }
 
 Passenger::getDest(){
