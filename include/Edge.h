@@ -10,13 +10,12 @@ private:
 
     double baseDuration;  //original time it takes to travel on this edge, minutes
     int startTownID;
-    int endTownID;
-    int edgeID;
-
-public:
-
+    int endTownID;   //one of two towns this edge connects, start/end doesn't make a difference
+    int edgeID;      //identifier for this edge
     double duration; //actual time it takes to travel on this edge, minutes
     int busCount;    //number of buses operating on this edge, both ways
+
+public:
 
     Edge() {baseDuration = 60; startTownID = 1; endTownID = 2; edgeID = 66;} //default constructor for an Edge object
     Edge(double baseTime, int town1ID, int town2ID, int ID) {baseDuration = baseTime; startTownID = town1ID; endTownID = town2ID; edgeID = ID;}
@@ -30,8 +29,24 @@ public:
         return edgeID;
     }
 
+    int getBusCount(){
+        return busCount;
+    }
+
     void setDuration(double newDuration){ //setter function to change how long it takes to travel this edge
         duration = newDuration;
+    }
+
+    void setBusCount(int newCount){
+        busCount = newCount;
+    }
+
+    void incrementBuses(){ //++ function for when a bus takes this edge
+        ++busCount;
+    }
+
+    void decrementBuses(){ //-- function for when a bus completes a journey on this edge
+        busCount--;
     }
 
     bool hasAccessTo(int originID, int destID){ //function to check if this edge can take a bus from the town with origin ID to the town with destination ID
@@ -41,6 +56,17 @@ public:
             }
         }
         return false;
+    }
+
+    void takeEdge(){  //function to be called when a bus drives along this edge
+        incrementBuses();
+        timeCalculate(0.65);
+        //wait or simulate for duration many ticks, getDuration();
+        decrementBuses();
+    }
+
+    void timeCalculate(double trafficCoefficient){ //function to calculate how long a trip along this Edge should take
+        setDuration(baseDuration * (trafficCoefficient * getBusCount()));
     }
 };
 

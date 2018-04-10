@@ -12,10 +12,10 @@ private:
     int capacity;
     int townID;  //townID of town that owns this bus
     int busID;   //identifier for Buses, might be unnecessary
+    int currentTownID; //townID of town where bus currently is
 
 public:
 
-    int currentTownID; //townID of town where bus currently is
     Bus() {capacity = 40; townID = 1; currentTownID = 1; busID = 1;} //default constructor for Bus objects with set values
     Bus(int originID, int cap, int ID) { capacity = cap; townID = originID; currentTownID = originID; busID = ID; }  //copy constructor for Bus objects
     // current location is set to be the origin town of the bus if not specified
@@ -32,6 +32,14 @@ public:
 
     int getCurrentLocation(){  //getter to locate the bus, if need be
         return currentTownID;
+    }
+
+    int setCurrentLocation(int current){
+        currentTownID = current;
+    }
+
+    bool isInTown(int town){ //function to check if this Bus is in specified town
+        return(currentTownID == town);
     }
 
 };
