@@ -20,19 +20,6 @@ void Town::addPassenger(Passenger pass) {
         throw invalid_argument("Passenger's next stop is not accessible from this town");
 }
 
-// Ask town if it has direct access to a certain town
-bool Town::hasDirectAccessTo(int otherTownID) {
-    for(auto i = roadsFromTown.begin(); i != roadsFromTown.end(); ++i){
-        if ((*i)->hasAccessTo(townID, otherTownID)) { // TODO: find out if edges are start/end only or bidirectional;
-            return true;
-        }
-    }
-    return false;
-}
-
-std::vector<int> Town::getConnectedTowns(){
-    return connectedTowns;
-};
 
 void Town::refreshTraffic() {
     forwardingTable.insert(std::pair <int, int> (1, 1));

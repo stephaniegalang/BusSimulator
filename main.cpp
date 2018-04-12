@@ -60,7 +60,7 @@ int main() {
     for(unsigned int i = 0; i < roads.size(); ++i){
         Edge edge = *roads.at(i);
         if ((edge.townLink[0] == 1) && (edge.townLink[1] == 2)){
-            std::cout << "The town with ID " << town1.townID << " has access to the town with ID " << town2.townID << " via edge with ID " << edge1.getID() << "!";
+            std::cout << "The town with ID " << town1.townID << " has access to the town with ID " << town2.townID << "!";
             std::cout << std::endl;
         }
     }
