@@ -15,7 +15,7 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
     std::uniform_int_distribution<> dis(1, NUMTOWNS);
     dest = dis(gen);
 
-    // TODO: routing algorithm to determine path based on dest [maybe implement in town like network fwding table??]
+    // TODO: routing algorithm to determine path based on dest
     // recursive fcn: check if have access to town
     // find all edges with startTown = origin, place in vector
     //      check "has access to", prefer direct routes
