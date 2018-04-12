@@ -45,21 +45,21 @@ int main() {
     town2.addPassenger(pass3);
     town2.addPassenger(pass4);
 
-    Bus redRoute(1, 40, 1);
-    Bus blueRoute(2, 35, 2);
-    std::cout << "The bus from the town with ID " << redRoute.getTownID() << " can move " << redRoute.getCapacity() << " passengers!" << std::endl;
+    Bus redRoute(40);
+    Bus blueRoute(35);
 
     std::vector<Edge*> roads; //initialize an array of pointers to Edge objects
 
-    Edge edge1(50, 5, 3, 2);
-    Edge edge2(120, 1, 2, 1); //create an edge connecting town1 and town2
+    int townVerts[2] = {1, 2};
+    Edge edge1(50, 5, 3);
+    Edge edge2(120, townVerts); //create an edge connecting town1 and town2
 
     roads.push_back(&edge1);
     roads.push_back(&edge2);
 
     for(unsigned int i = 0; i < roads.size(); ++i){
         Edge edge = *roads.at(i);
-        if (edge.hasAccessTo(town1.townID, town2.townID)){
+        if ((edge.townLink[0] == 1) && (edge.townLink[1] == 2)){
             std::cout << "The town with ID " << town1.townID << " has access to the town with ID " << town2.townID << " via edge with ID " << edge1.getID() << "!";
             std::cout << std::endl;
         }
