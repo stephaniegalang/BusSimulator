@@ -9,24 +9,20 @@ class Edge {
 private:
 
     double baseDuration;  //original time it takes to travel on this edge, minutes
-    int startTownID;
-    int endTownID;
-    int edgeID;      //TODO combine into one ordered pair for start town and end town, public const
     double duration; //actual time it takes to travel on this edge, minutes
     int busCount;    //number of buses operating on this edge, both ways
 
 public:
 
-    Edge() {baseDuration = 60; startTownID = 1; endTownID = 2; edgeID = 66;} //default constructor for an Edge object
-    Edge(double baseTime, int town1ID, int town2ID, int ID) {baseDuration = baseTime; startTownID = town1ID; endTownID = town2ID; edgeID = ID;}
+    int townLink[2];
+
+    Edge() {baseDuration = 60; townLink[0] = 1, townLink[1] = 1;} //default constructor for an Edge object
+    Edge(double baseTime, int town1ID, int town2ID) {baseDuration = baseTime; townLink[0] = town1ID; townLink[1] = town2ID;}
+    Edge(double baseTime, int townNodes[2]) {baseDuration = baseTime; townLink[0] = townNodes[0]; townLink[1] = townNodes[1];}
     //Copy constructor for an Edge object
 
     double getDuration(){  //getter for the current time it takes to travel this edge
         return duration;
-    }
-
-    int getID(){
-        return edgeID;
     }
 
     int getBusCount(){
@@ -47,15 +43,6 @@ public:
 
     void decrementBuses(){ //-- function for when a bus completes a journey on this edge
         busCount--;
-    }
-
-    bool hasAccessTo(int originID, int destID){ //function to check if this edge can take a bus from the town with origin ID to the town with destination ID
-        if((startTownID == originID)){
-            if ((endTownID == destID)){
-                return true; //todo delete this
-            }
-        }
-        return false;
     }
 
     void takeEdge(){  //function to be called when a bus drives along this edge
