@@ -6,6 +6,7 @@
 #define BUSSIMULATOR_ALGORITHM_H
 
 #include <vector>
+#include <climits>
 #include "Town.h"
 
 constexpr unsigned int numTowns = 4;

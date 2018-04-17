@@ -13,7 +13,6 @@ int recursiveTownSearch(int otherTown, std::vector<int>* visitedTowns);
 int nextNodeToDest(int originID, int destID, std::vector<int>* visitedTowns);
 
 using namespace std;
-
  class Town {
  private:
      int basePop;
@@ -39,10 +38,11 @@ using namespace std;
      // Town ID:
      const int townID;
 
-     Town(int id, int * connections, int numConnections, int _basePop, double _startProb);
+     //Pass in vector of connected towns and the edge objects associated with them, as well as an  empty forwarding table
+     Town(int id, int* connectedTowns, int numConnectedTowns, vector<Edge*> &edges, map<int, int> fTable, int _basePop, double _startProb);
      void addPassenger(Passenger pass);
      //pull passengers from departure queue (in another town) into this town
-     //void movePassengers(queue<Passenger*> &departures, int numPass );
+     void movePassengers(queue<Passenger*> &departures, int numPass );
 
      //calls target's movePassengers, making it pull passengers from this town
      void TESTmovePeople(Town* target){
@@ -51,10 +51,11 @@ using namespace std;
 
      // TODO: Suggestions: add fcns to build list of edges out of town and a fwding table with fastest routes -s.g.
      // Add road to list of roads
+     void addRoad(Edge* edge);
+
      // Build or refresh fastestPathToTown fwding table
      void refreshTraffic();
-     bool hasDirectAccessTo(int townID);
-     std::vector<int> getConnectedTowns();
+     int getNextNode(int destID);//used by passenger to get next node
 
      // TODO: End Suggestion
 

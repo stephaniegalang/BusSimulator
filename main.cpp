@@ -14,8 +14,14 @@ int main() {
     std::cout << "Hi group meeting 2" << std:: endl;
     int conn1[]={2,4,3};
     int conn2[]={1,4,3};
-
-    Town town1(1,conn1,3,10,.5);
+    vector<Edge*> tmp1, tmp2;
+    map<int, int> routingTable;
+    routingTable.emplace(1,0);
+    routingTable.emplace(2,0);
+    routingTable.emplace(3,0);
+    routingTable.emplace(4,0);
+    routingTable.emplace(5,0);
+    Town town1(1,conn1,3,tmp1,routingTable, 10,.5);
     townArray.push_back(town1);
     Passenger pass1(3);
     Passenger pass2(1);
@@ -39,7 +45,7 @@ int main() {
     fwdingTable(country, town1adr);
     //TODO: end TEST
 
-    Town town2(2,conn2,3,10,.5);
+    Town town2(2,conn2,3,tmp2,routingTable,10,.5);
     townArray.push_back(town2);
     town2.addPassenger(pass2);
     town2.addPassenger(pass3);
