@@ -9,9 +9,6 @@
 std::vector<Town> townArray;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl<<"I'm testing Git." << std::endl;
-    std::cout << "Hello, Thomas and Stephanie!" << std::endl << "Hi Bora!" << std::endl;
-    std::cout << "Hi group meeting 2" << std:: endl;
     int conn1[]={2,4,3};
     int conn2[]={1,4,3};
 
@@ -21,10 +18,8 @@ int main() {
     Passenger pass2(1);
     Passenger pass3(3);
     Passenger pass4(3);
-
     town1.addPassenger(pass1);
-
-
+    
     //TODO: Testing Alg; After all towns are generated, need to produce matrix of distances (one row for one node)
     //      May need to implement matrix in its own file + possibly allow it to update
     int country[4][4] = {{0, 4, 0, 0},
@@ -33,11 +28,37 @@ int main() {
                        {0, 0, 7, 0}
     }; //sample matrix is linear A -> B -> C -> D (edge lengths are 4,8,7)
 
-    Town *town1adr;
-    town1adr = &town1;
     //Make fwding table for town 1
-    fwdingTable(country, town1adr);
-    //TODO: end TEST
+    fwdingTable(country, &town1);
+
+    // ------------------ pseudocode to generate correct inputs for fwding table generation ------------------
+    int numTowns = townArray.size();
+
+    // generate shell for input array
+    int** countryIN = new int*[numTowns];
+    for (int i = 0; i < numTowns; ++i) {
+        countryIN[i] = new int[numTowns];
+    }
+
+    // populate input array
+    for (int i = 0; i < numTowns; ++i) {
+        std::vector<int> townDistArr = (townArray.at(i)).getConnectedTowns(); // 2D vector w/ distances to other towns
+
+        // place vector values into input array
+        for (int j = 0; j < numTowns; ++j) {
+            // countryIN[i][j] = townDistArr.at(j);
+            //temp: fill with all 1's
+            countryIN[i][j] = 1;
+        }
+    }
+
+    //delete dynamically allocated countryIN
+    for(int i = 0; i < numTowns; ++i) {
+        delete [] countryIN[i];
+    }
+    delete [] countryIN;
+    // ------------------ end input generation -------------------------------------------------------------
+    //TODO: end alg TEST
 
     Town town2(2,conn2,3,10,.5);
     townArray.push_back(town2);

@@ -16,13 +16,12 @@ townID{id}, basePop{_basePop}, startProb{_startProb} {
 
 void Town::addPassenger(Passenger pass) {
     cout<<townID<<" Adding passenger. Next stop: "<< pass.getNextStop() <<endl;
-    if(!destinationQueues.count(pass.getNextStop()))
-        throw invalid_argument("Passenger's next stop is not accessible from this town");
+//    if(!destinationQueues.count(pass.getNextStop()))
+//        throw invalid_argument("Passenger's next stop is not accessible from this town");
 }
 
-
-void Town::refreshTraffic() {
-    forwardingTable.insert(std::pair <int, int> (1, 1));
+std::vector<int> Town::getConnectedTowns() {
+    return connectedTowns;
 }
 
 // DOES NOT WORK; DOES NOT UPDATE PASSENGER'S NEXT STOP // TODO: add bus of new passengers to other town's population

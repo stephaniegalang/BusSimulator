@@ -52,9 +52,7 @@ using namespace std;
      // TODO: Suggestions: add fcns to build list of edges out of town and a fwding table with fastest routes -s.g.
      // Add road to list of roads
      // Build or refresh fastestPathToTown fwding table
-     void refreshTraffic();
-     bool hasDirectAccessTo(int townID);
-     std::vector<int> getConnectedTowns();
+     std::vector<int> getConnectedTowns(); // return array with distances of connected towns, or 0 if not connected or self
 
      // TODO: End Suggestion
 
