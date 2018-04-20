@@ -4,7 +4,6 @@
 
 #ifndef BUSSIMULATOR_PASSENGER_H
 #define BUSSIMULATOR_PASSENGER_H
-#include <vector>
 #include "Edge.h"
 
 constexpr unsigned int NUMTOWNS = 2;
@@ -14,14 +13,11 @@ class Passenger {
         int origin;
         int dest;
         int travelTime;
-
-        //Path vector is ordered starting with final destination last (due to push/pop nature of vectors)
-        //TLDR: Next edge is last item in path
-        std::vector<Edge*> path; //rn this is decided when the passenger is generated cuz IRL ppl don't change itineraries
+        int nextStop;
 
     public:
-        int nextStop;
-        Passenger(int TownID);
+
+        explicit Passenger(int TownID);
         // void decideOrigin(); Do this in town, then pass in ID
 
         //below fcn is glitching out, should be void but believes my move fcn returns an int?

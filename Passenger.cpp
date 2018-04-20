@@ -15,18 +15,14 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
     std::uniform_int_distribution<> dis(1, NUMTOWNS);
     dest = dis(gen);
 
-    // TODO: routing algorithm to determine path based on dest
-    // recursive fcn: check if have access to town
-    // find all edges with startTown = origin, place in vector
-    //      check "has access to", prefer direct routes
-    //      else recurse thro each end town, need check to avoid previously visited towns
-    //          if reach dead end, return large distance to guarantee it's never used
-    // needed variables: vec of towns visited, vec of distances, vec of potential paths?
-
+    //TODO: generate nextStop from forwarding tables
+    // temp nextStop set to 0
+    nextStop = 1;
 }
 
 void Passenger::move(){
     //TODO: update movement conditions based on town and edge class updates
+    //TODO: To Thomas: anything related to the fwding table (like next dest) I can do if you are confused (mark with TODO)
     //      travelTime += (path.at(path.end() + 0)).getDuration(); // update time travelled from edge's travel time
     //      origin = (path.at(path.end() + 0)).getEndTown(); //
     //      path.pop_back(); // remove road travelled from path
@@ -35,7 +31,7 @@ void Passenger::move(){
 
 int Passenger::getNextStop(){
     //return (path.at(path.end() + 0)).getEndTown();
-    return 3;
+    return nextStop;
 }
 
 int Passenger::getDest(){
