@@ -8,7 +8,9 @@
 
 std::vector<Town> townArray;
 
+map<vector<int>,Edge> EDGEMAP;
 int main() {
+
     int conn1[]={2,4,3};
     int conn2[]={1,4,3};
     map<int,int> blankFT;

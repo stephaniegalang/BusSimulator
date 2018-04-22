@@ -7,6 +7,7 @@
 #include <queue>
 #include <map>
 #include "Passenger.h"
+#include "EdgeMap.h"
 
 // Forward Declarations from Algorithm
 int recursiveTownSearch(int otherTown, std::vector<int>* visitedTowns);
@@ -51,7 +52,11 @@ using namespace std;
 
      // TODO: Suggestions: add fcns to build list of edges out of town and a fwding table with fastest routes -s.g.
 
+     //Node 0 has connectedTowns = {0, 4, 3, 0};
+     //0 for itself or nodes it cannot see (0 and 3)
+     //>0 for directly connected nodes; [Node 1] is 4 away, [Node 2] is 3 away
      std::vector<int> getConnectedTowns();
+
      int getNextNode(int destID);//used by passenger to get next node
 
      // TODO: End Suggestion

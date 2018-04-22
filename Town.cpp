@@ -21,7 +21,14 @@ void Town::addPassenger(Passenger pass) {
 }
 
 std::vector<int> Town::getConnectedTowns() {
-    return connectedTowns;
+    vector<int> out(forwardingTable.size());
+    for (int i=0; i<forwardingTable.size(); i++){ //Iterates through every town ID, if town is connected, gets delay along edge, else puts 0
+        if (destinationQueues.count(i)) {
+            out[i] = EDGEMAP[vector<int>(townID, i)].getDuration();
+        }
+        else out[i]=0;
+    }
+    return connectedTowns;//TODO make sure vector is actually populated
 }
 
 int Town::getNextNode(int destID) {

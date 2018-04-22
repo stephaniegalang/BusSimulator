@@ -8,8 +8,8 @@
 class Edge {
 private:
 
-    double baseDuration;  //original time it takes to travel on this edge, minutes
-    double duration; //actual time it takes to travel on this edge, minutes
+    int baseDuration;  //original time it takes to travel on this edge, minutes
+    int duration; //actual time it takes to travel on this edge, minutes
     int busCount;    //number of buses operating on this edge, both ways
 
 public:
@@ -21,7 +21,7 @@ public:
     Edge(double baseTime, int townNodes[2]) {baseDuration = baseTime; townLink[0] = townNodes[0]; townLink[1] = townNodes[1];}
     //Copy constructor for an Edge object
 
-    double getDuration(){  //getter for the current time it takes to travel this edge
+    int getDuration(){  //getter for the current time it takes to travel this edge
         return duration;
     }
 
