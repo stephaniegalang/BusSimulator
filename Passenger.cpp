@@ -4,6 +4,8 @@
 
 #include "Passenger.h"
 #include <random>
+#include "EdgeMap.h"
+#include "TownMap.h"
 
 class Town; // Forward declare town to allow use of town's path forwarding table
 
@@ -22,11 +24,9 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
 
 void Passenger::move(){
     //TODO: update movement conditions based on town and edge class updates
-    //TODO: To Thomas: anything related to the fwding table (like next dest) I can do if you are confused (mark with TODO)
-    //      travelTime += (path.at(path.end() + 0)).getDuration(); // update time travelled from edge's travel time
-    //      origin = (path.at(path.end() + 0)).getEndTown(); //
-    //      path.pop_back(); // remove road travelled from path
-    //      town.incPop(); // update new town's population // dont in town
+    travelTime += EDGEMAP[std::vector<int>(currentStop,nextStop)].getDuration(); // update time travelled from edge's travel time
+    currentStop=nextStop;
+    nextStop=TOWNMAP[currentStop].getNextNode(dest);
 }
 
 int Passenger::getNextStop(){

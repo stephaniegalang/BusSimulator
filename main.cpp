@@ -9,6 +9,7 @@
 std::vector<Town> townArray;
 
 map<vector<int>,Edge> EDGEMAP;
+map<int,Town> TOWNMAP;
 int main() {
 
     int conn1[]={2,4,3};

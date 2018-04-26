@@ -39,14 +39,16 @@ int Town::getNextNode(int destID) {
 void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
     for (int i=0; i<numPass && !departures.empty(); i++){
         Passenger* pass=departures.front();
-        pass->move(); //Updates internal passenger values
-        curentPop++;
-        if (destinationQueues.count(pass->getNextStop()))
-            destinationQueues[pass->getNextStop()].push(pass);
-        else if (townID==pass->getDest())
-            cout<<"Reached dest!"<<endl;// TODO What happens when a passenger reaches destination?
-        else
-            throw logic_error("The passenger's next stop is not available and this is not the destination.");
-        departures.pop(); //Removes passenger from previous stop queue
+        if (townID==pass->getDest())
+            cout<<"Reached dest!"<<endl;// TODO What happens when a passenger reaches destination? (record time taken, start and end nodes, and destroy object)
+        else {
+            pass->move(); //Updates internal passenger values
+            curentPop++;  //Update population (for dynamic traffic)
+            if (destinationQueues.count(pass->getNextStop())) //If the next stop is available...
+                destinationQueues[pass->getNextStop()].push(pass); //push passenger into the queue
+            else
+                throw logic_error("The passenger's next stop is not available and this is not the destination.");
+        }
+        departures.pop();//Removes passenger from previous stop queue
     }
 }
