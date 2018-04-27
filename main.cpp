@@ -25,10 +25,10 @@ int main() {
 
     //TODO: Testing Alg; After all towns are generated, need to produce matrix of distances (one row for one node)
     //      May need to implement matrix in its own file + possibly allow it to update
-    int country[4][4] = {{0, 4, 0, 0},
-                       {4, 0, 8, 0},
-                       {0, 8, 0, 7},
-                       {0, 0, 7, 0}
+    int country[4][4] = {{0, 3, 0, 0},
+                       {3, 0, 1, 2},
+                       {0, 1, 0, 0},
+                       {0, 2, 0, 0}
     }; //sample matrix is linear A -> B -> C -> D (edge lengths are 4,8,7)
 
     //Make fwding table for town 1
