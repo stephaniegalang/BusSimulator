@@ -7,13 +7,13 @@
 
 #include <vector>
 #include <climits>
-#include "Town.h"
+#include <map>
 
-constexpr unsigned int numTowns = 4;
+extern const unsigned int numTowns = 4;
 
-map <int, int> fwdingTable(int country[numTowns][numTowns], Town* originTown){
-    map <int, int> forwardingTable;
-    forwardingTable.insert(std::pair <int, int> (originTown->townID, 0)); // <node, reccomended next node>
+std::map <int, int> fwdingTable(int** country, int townID){
+    std::map <int, int> forwardingTable;
+    forwardingTable.insert(std::pair <int, int> (townID, 0)); // <node, reccomended next node>
 
     //Initialize Array to store distance from source (could change to map but for now assume index = townID)
     int distances[numTowns];
@@ -27,15 +27,15 @@ map <int, int> fwdingTable(int country[numTowns][numTowns], Town* originTown){
         distances[i] = INT_MAX;
         visitedTowns[i] = false;
     }
-    distances[originTown->townID - 1] = 0; // TODO: if towns start at 1, -1
-    nextNode[originTown->townID - 1] = 0;
+    distances[townID - 1] = 0; // TODO: if towns start at 1, -1
+    nextNode[townID - 1] = 0;
 
     // Calculate shortest paths + closest next node in path for each node
     for (int i = 0; i < numTowns - 1; ++i) {
 
         // Find min value
         int min = INT_MAX;
-        int min_index = originTown->townID;
+        int min_index = townID;
 
         for (int j = 0; j < numTowns; j++) {
             if (!visitedTowns[j] && (distances[j] <= min)) {
@@ -59,9 +59,9 @@ map <int, int> fwdingTable(int country[numTowns][numTowns], Town* originTown){
     }
 
     // Build forwarding table
-    map <int, int> fwdingTable;
+    std::map <int, int> fwdTable;
     for (int i = 0; i < numTowns; i++) {
-        fwdingTable.insert(pair <int, int> (i, nextNode[i]));
+        fwdTable.insert(std::pair <int, int> (i, nextNode[i]));
     }
 
     //Debugging purposes, print forwarding table using map
@@ -72,13 +72,13 @@ map <int, int> fwdingTable(int country[numTowns][numTowns], Town* originTown){
     } */
 
     //Debugging purposes, print forwarding table via nextNode array
-    /* printf("---Fwding Table Calc for node %d---\n", originTown->townID);
+     printf("---Fwding Table Calc for node %d---\n", townID);
     for (int i = 0; i < numTowns; i++) {
         printf("next node %d: %d\n", i, nextNode[i]);
     }
-    */
 
-    return fwdingTable;
+
+    return fwdTable;
 
 }
 

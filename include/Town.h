@@ -20,8 +20,7 @@ using namespace std;
      int basePop;
      int curentPop;
      double startProb; //likelihood of passenger spawning here at a given time (poisson distribution?)
-
-     // TODO: Suggestion: Store list of roads and best paths to connected towns? -s.g.
+     int* connections;
      std::vector<int> connectedTowns;
      map <int, int> forwardingTable; // <otherTown, recommended edge to other town>
 
@@ -40,7 +39,7 @@ using namespace std;
      const int townID;
 
      //Pass in vector of connected towns and the edge objects associated with them, as well as an  empty forwarding table
-     Town(int id, int* connections, int numConnections, map<int, int> fTable, int _basePop, double _startProb);
+     Town(int id, int* connections, int numConnections, int _basePop, double _startProb);
      Town():townID{0}{};
      void addPassenger(Passenger pass);
      //pull passengers from departure queue (in another town) into this town
@@ -57,7 +56,9 @@ using namespace std;
      //0 for itself or nodes it cannot see (0 and 3)
      //>0 for directly connected nodes; [Node 1] is 4 away, [Node 2] is 3 away
      std::vector<int> getConnectedTowns();
-
+     int* getConnections();
+     void generateForwardingTable(int** country);
+     //int getNextNode();
      int getNextNode(int destID);//used by passenger to get next node
 
      // TODO: End Suggestion

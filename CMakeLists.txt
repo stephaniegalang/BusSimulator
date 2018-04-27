@@ -11,4 +11,5 @@ add_executable(BusSimulator main.cpp Town.cpp Passenger.cpp
         include/Bus.h
         include/Algorithm.h
         include/EdgeMap.h
-        include/TownMap.h)
+        include/Inputs.h
+        include/TownMap.h include/Inputs.h)

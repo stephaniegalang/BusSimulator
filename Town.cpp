@@ -4,9 +4,10 @@
 
 #include <iostream>
 #include "Town.h"
+#include "Algorithm.h"
 
-Town::Town(int id, int * connections, int numConnections, map<int, int> fTable, int _basePop, double _startProb):
-townID{id}, basePop{_basePop}, startProb{_startProb}, forwardingTable{fTable}{
+Town::Town(int id, int * connectionsArr, int numConnections, int _basePop, double _startProb):
+townID{id}, basePop{_basePop}, startProb{_startProb}, connections{connectionsArr}{
     for (int i=0; i<numConnections; i++){
         if (connections[i]==townID)
             throw invalid_argument("Town cannot be connected to itself.");
@@ -18,6 +19,14 @@ void Town::addPassenger(Passenger pass) {
     cout<<townID<<" Adding passenger. Next stop: "<< pass.getNextStop() <<endl;
 //    if(!destinationQueues.count(pass.getNextStop()))
 //        throw invalid_argument("Passenger's next stop is not accessible from this town");
+}
+
+int* Town::getConnections() {
+    return connections;
+}
+
+void Town::generateForwardingTable(int** country) {
+    forwardingTable = fwdingTable(country, townID);
 }
 
 std::vector<int> Town::getConnectedTowns() {
