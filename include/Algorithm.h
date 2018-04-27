@@ -11,7 +11,7 @@
 
 constexpr unsigned int numTowns = 4;
 
-void fwdingTable(int country[numTowns][numTowns], Town* originTown){
+map <int, int> fwdingTable(int country[numTowns][numTowns], Town* originTown){
     map <int, int> forwardingTable;
     forwardingTable.insert(std::pair <int, int> (originTown->townID, 0)); // <node, reccomended next node>
 
@@ -78,6 +78,7 @@ void fwdingTable(int country[numTowns][numTowns], Town* originTown){
     }
     */
 
+    return fwdingTable;
 
 }
 
