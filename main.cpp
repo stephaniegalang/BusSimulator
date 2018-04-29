@@ -29,7 +29,6 @@ int main() {
             if ((townConnections.at(i))[j] != 0) {
                 roads.push_back(Edge((townConnections.at(i))[j], i, j));
                 EDGEMAP.emplace(vector<int>(i,j), roads.back());
-                EDGEMAP.emplace(vector<int>(j,i), roads.back());
             }
 
     }
@@ -40,10 +39,10 @@ int main() {
     std::mt19937 gen(rd());
 
     for (int i = 0; i < numPassenger; ++i){
-        std::uniform_int_distribution<> dis(1, NUMTOWNS);
+        std::uniform_int_distribution<> dis(1, numTowns);
         int origin = dis(gen);
         Passenger passGen(origin);
-        townArray.at(origin).addPassenger(passGen);
+        townArray.at(origin-1).addPassenger(passGen);
     }
 
     //int townVerts[2] = {1, 2};

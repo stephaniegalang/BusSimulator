@@ -9,7 +9,7 @@
 #include <climits>
 #include <map>
 
-extern const unsigned int numTowns = 4;
+extern const unsigned int numTowns;
 
 std::map <int, int> fwdingTable(int** country, int townID){
     std::map <int, int> forwardingTable;
@@ -66,7 +66,7 @@ std::map <int, int> fwdingTable(int** country, int townID){
     // Build forwarding table
     std::map <int, int> fwdTable;
     for (int i = 0; i < numTowns; i++) {
-        fwdTable.insert(std::pair <int, int> (i, nextNode[i]));
+        fwdTable.insert(std::pair <int, int> (i+1, nextNode[i]+1));
     }
 
     //Debugging purposes, print forwarding table using map
@@ -79,7 +79,7 @@ std::map <int, int> fwdingTable(int** country, int townID){
     //Debugging purposes, print forwarding table via nextNode array
      printf("---Fwding Table Calc for node %d---\n", townID);
     for (int i = 0; i < numTowns; i++) {
-        printf("next node %d: %d\n", i + 1, nextNode[i] + 1);
+        printf("next node %d: %d\n", i, nextNode[i]);
     }
 
     return fwdTable;

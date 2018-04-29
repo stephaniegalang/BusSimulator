@@ -51,11 +51,8 @@ void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
             cout<<"Reached dest!"<<endl;// TODO What happens when a passenger reaches destination? (record time taken, start and end nodes, and destroy object)
         else {
             pass->move(); //Updates internal passenger values
-            curentPop++;  //Update population (for dynamic traffic)
-            if (destinationQueues.count(pass->getNextStop())) //If the next stop is available...
-                destinationQueues[pass->getNextStop()].push(pass); //push passenger into the queue
-            else
-                throw logic_error("The passenger's next stop is not available and this is not the destination.");
+            //curentPop++;  //Update population (for dynamic traffic)
+            destinationQueues[pass->getNextStop()].push(pass); //push passenger into the queue
         }
         departures.pop();//Removes passenger from previous stop queue
     }

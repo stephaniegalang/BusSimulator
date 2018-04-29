@@ -6,7 +6,6 @@
 #define BUSSIMULATOR_PASSENGER_H
 #include "Edge.h"
 
-constexpr unsigned int NUMTOWNS = 2;
 
 class Passenger {
     private:

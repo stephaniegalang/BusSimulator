@@ -9,6 +9,7 @@
 #include "Passenger.h"
 #include "EdgeMap.h"
 
+extern unsigned const int numTowns;
 // Forward Declarations from Algorithm
 int recursiveTownSearch(int otherTown, std::vector<int>* visitedTowns);
 int nextNodeToDest(int originID, int destID, std::vector<int>* visitedTowns);
@@ -18,7 +19,7 @@ using namespace std;
  class Town {
  private:
      int basePop;
-     int curentPop;
+     //int curentPop;
      double startProb; //likelihood of passenger spawning here at a given time (poisson distribution?)
      int* connections;
      std::vector<int> connectedTowns;
