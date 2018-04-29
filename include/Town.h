@@ -42,7 +42,7 @@ using namespace std;
      //Pass in vector of connected towns and the edge objects associated with them, as well as an  empty forwarding table
      Town(int id, int* connectionsArr, int numConnections, int _basePop, double _startProb);
      Town():townID{0}{};
-     void addPassenger(Passenger pass);
+     void addPassenger(Passenger* pass);
      //pull passengers from departure queue (in another town) into this town
      void movePassengers(queue<Passenger*> &departures, int numPass );
 
@@ -51,18 +51,15 @@ using namespace std;
          //target->movePassengers(destinationQueues[target->townID],3);
      };
 
-     // TODO: Suggestions: add fcns to build list of edges out of town and a fwding table with fastest routes -s.g.
 
      //Node 0 has connectedTowns = {0, 4, 3, 0};
      //0 for itself or nodes it cannot see (0 and 3)
      //>0 for directly connected nodes; [Node 1] is 4 away, [Node 2] is 3 away
-     std::vector<int> getConnectedTowns();
      int* getConnections();
      void generateForwardingTable(int** country);
      //int getNextNode();
      int getNextNode(int destID);//used by passenger to get next node
 
-     // TODO: End Suggestion
 
 };
 

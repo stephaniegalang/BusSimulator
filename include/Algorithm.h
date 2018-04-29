@@ -70,16 +70,10 @@ std::map <int, int> fwdingTable(int** country, int townID){
     }
 
     //Debugging purposes, print forwarding table using map
-    /*map <int, int> :: iterator itr;
-     printf("---Fwding Table Calc for node %d---\n", originTown->townID);
-    for (itr = fwdingTable.begin(); itr != fwdingTable.end(); ++itr) {
-        printf("next node %d: %d\n", itr->first, itr->second);
-    } */
-
-    //Debugging purposes, print forwarding table via nextNode array
+    map <int, int> :: iterator itr;
      printf("---Fwding Table Calc for node %d---\n", townID);
-    for (int i = 0; i < numTowns; i++) {
-        printf("next node %d: %d\n", i, nextNode[i]);
+    for (itr = fwdTable.begin(); itr != fwdTable.end(); ++itr) {
+        printf("next node %d: %d\n", itr->first, itr->second);
     }
 
     return fwdTable;

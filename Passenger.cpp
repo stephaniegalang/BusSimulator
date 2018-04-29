@@ -28,8 +28,7 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
 }
 
 void Passenger::move(){
-    //TODO: update movement conditions based on town and edge class updates
-    travelTime += EDGEMAP[std::vector<int>(currentStop,nextStop)].getDuration(); // update time travelled from edge's travel time
+    travelTime += EDGEMAP[{currentStop,nextStop}].getDuration(); // update time travelled from edge's travel time
     currentStop=nextStop;
     nextStop=TOWNMAP[currentStop].getNextNode(dest);
 }

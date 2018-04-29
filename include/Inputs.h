@@ -16,7 +16,7 @@
 /* Storage */
 std::vector<Town> townArray;
 //std::vector<int*> townConnections;
-map<vector<int>,Edge> EDGEMAP;
+map<array<int,2>,Edge> EDGEMAP;
 map<int,Town> TOWNMAP;
 std::vector<Edge> roads; //initialize an array of pointers to Edge objects
 
@@ -40,10 +40,9 @@ int numPassengersTown3 = 4;
 int numPassengersTown4 = 4;
 
 // Generate Buses
-Bus City1Route(40);
-Bus City2Route(40);
-Bus City3Route(40);
-Bus City4Route(40);
+Bus Route1_2_1(40);  //Format: Route<startNode>_<endNode>_<busNum>
+Bus Route3_2_1(40);
+Bus Route4_2_1(40);
 
 /*** END AREAS THAT CAN BE EDITED ***/
 

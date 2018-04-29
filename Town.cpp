@@ -14,10 +14,9 @@ townID{id}, basePop{_basePop}, startProb{_startProb}, connections{connectionsArr
     }
 }
 
-void Town::addPassenger(Passenger pass) {
-    cout<<townID<<" Adding passenger. Next stop: "<< pass.getNextStop() <<endl;
-//    if(!destinationQueues.count(pass.getNextStop()))
-//        throw invalid_argument("Passenger's next stop is not accessible from this town");
+void Town::addPassenger(Passenger* pass) {
+    cout<<townID<<" Adding passenger. Next stop: "<< pass->getNextStop() <<endl;
+    destinationQueues[pass->getNextStop()].push(pass);
 }
 
 int* Town::getConnections() {
@@ -28,22 +27,13 @@ void Town::generateForwardingTable(int** country) {
     forwardingTable = fwdingTable(country, townID);
 }
 
-std::vector<int> Town::getConnectedTowns() {
-    vector<int> out(forwardingTable.size());
-    for (int i=0; i<forwardingTable.size(); i++){ //Iterates through every town ID, if town is connected, gets delay along edge, else puts 0
-        if (destinationQueues.count(i)) {
-            out[i] = EDGEMAP[vector<int>(townID, i)].getDuration();
-        }
-        else out[i]=0;
-    }
-    return connectedTowns;//TODO make sure vector is actually populated
-}
 
 int Town::getNextNode(int destID) {
     return forwardingTable[destID];
 }
 
 // Moves a bus of passengers from a queue into this town's queues
+//TODO: delete
 void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
     for (int i=0; i<numPass && !departures.empty(); i++){
         Passenger* pass=departures.front();
@@ -57,3 +47,21 @@ void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
         departures.pop();//Removes passenger from previous stop queue
     }
 }
+
+//TODO: Arrival
+    //pull passengers off bus
+        // moves passengers into destination queues
+        // make sure bus seats are empty (set bus contents to nulls))
+        //handle passenger updates
+        //IF passenger is @ destination
+            //update travel statistics
+            //delete passenger
+            //--totalPassengers
+    //Schedule departure for bus (offset by waitTime) and return it
+
+//TODO: departure
+    //populate bus from corresponding destinationQueue
+    //schedule arrival (at opposite node) and return it
+        //switch townID and nextTownID
+        //offset by edge delay
+

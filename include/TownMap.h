@@ -4,7 +4,7 @@
 #include "Town.h"
 #include <map>
 
-extern map<int,Town> TOWNMAP; // TODO: Populate this with towns (mapped from ID)
+extern map<int,Town> TOWNMAP;
 
 
 #endif //BUSSIMULATOR_TOWNMAP_H

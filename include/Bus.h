@@ -13,7 +13,7 @@ private:
 
 public:
 
-    std::vector<Passenger> passengers;
+    std::array<Passenger,capacity> passengers;
 
     Bus() {capacity = 40; } //default constructor for Bus objects with set values
     Bus(int cap) {capacity = cap;}  //copy constructor for Bus objects

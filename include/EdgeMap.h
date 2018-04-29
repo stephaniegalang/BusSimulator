@@ -4,7 +4,7 @@
 #include "Edge.h"
 #include <map>
 
-extern std::map<std::vector<int>,Edge> EDGEMAP; // TODO: Populate this with edges (mapped from each connection)
+extern std::map<std::array<int,2>,Edge> EDGEMAP;
 
 
 #endif //BUSSIMULATOR_EDGEMAP_H
