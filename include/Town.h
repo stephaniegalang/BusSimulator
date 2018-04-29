@@ -39,7 +39,7 @@ using namespace std;
      const int townID;
 
      //Pass in vector of connected towns and the edge objects associated with them, as well as an  empty forwarding table
-     Town(int id, int* connections, int numConnections, int _basePop, double _startProb);
+     Town(int id, int* connectionsArr, int numConnections, int _basePop, double _startProb);
      Town():townID{0}{};
      void addPassenger(Passenger pass);
      //pull passengers from departure queue (in another town) into this town

@@ -13,7 +13,9 @@ private:
 
 public:
 
-    Bus() {capacity = 40;} //default constructor for Bus objects with set values
+    std::vector<Passenger> passengers;
+
+    Bus() {capacity = 40; } //default constructor for Bus objects with set values
     Bus(int cap) {capacity = cap;}  //copy constructor for Bus objects
     // current location is set to be the origin town of the bus if not specified
 

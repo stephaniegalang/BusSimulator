@@ -9,9 +9,8 @@
 Town::Town(int id, int * connectionsArr, int numConnections, int _basePop, double _startProb):
 townID{id}, basePop{_basePop}, startProb{_startProb}, connections{connectionsArr}{
     for (int i=0; i<numConnections; i++){
-        if (connections[i]==townID)
-            throw invalid_argument("Town cannot be connected to itself.");
-        destinationQueues.emplace(connections[i],queue<Passenger*>());
+        if (connections[i]>0)
+            destinationQueues.emplace(i+1,queue<Passenger*>());
     }
 }
 

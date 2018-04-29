@@ -5,9 +5,10 @@ int main() {
     //TODO: Try to fix so they work in Inputs.h
 
     // Dynamically generate towns
-    for (int i = 1; i <= numTowns; ++i)
-        townArray.emplace_back(Town(i,townConnections.at(i - 1).data(),1,10,.25));
-
+    for (int i = 1; i <= numTowns; ++i) {
+        townArray.emplace_back(Town(i, townConnections.at(i - 1).data(), townConnections.at(i - 1).size(), 10, .25));
+        TOWNMAP.emplace(i,townArray[i-1]);
+    }
 
     // ------------------generate correct inputs for fwding table generation ------------------
     int** countryIN = new int*[numTowns];
@@ -25,8 +26,12 @@ int main() {
     // ------------------ Dynamically generate edges ----------------------------------------------
     for (int i = 0; i < townConnections.size(); ++i) {
         for (int j = 0; j < sizeof(townConnections.at(i)); ++j)
-            if ((townConnections.at(i))[j] != 0)
+            if ((townConnections.at(i))[j] != 0) {
                 roads.push_back(Edge((townConnections.at(i))[j], i, j));
+                EDGEMAP.emplace(vector<int>(i,j), roads.back());
+                EDGEMAP.emplace(vector<int>(j,i), roads.back());
+            }
+
     }
 
     // ------------------- Generate numPassenger many passengers ----------------------------------
@@ -67,11 +72,7 @@ int main() {
         }
     }
 
-
-
-
-
-    //town2.TESTmovePeople(&town1);
+    Event e1{0,1,2,City1Route,Arriving};
 
     delete [] countryIN;
     return 0;
