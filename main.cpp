@@ -45,6 +45,8 @@ int main() {
         TOWNMAP[origin].addPassenger(tmpPass);
     }
 
+    //TODO: populate globalStats w/ initial values for each pair
+
     //TODO: generate an initial event for each bus.
         //offset=delay*2/numBuses
         //Departures to start

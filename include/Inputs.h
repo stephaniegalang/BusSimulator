@@ -12,11 +12,14 @@
 #include "Bus.h"
 #include "Passenger.h"
 #include "Event.h"
+#include "Stats.h"
+
+//TODO: Tidy
 
 /* Storage */
 std::vector<Town> townArray;
-//std::vector<int*> townConnections;
 map<array<int,2>,Edge> EDGEMAP;
+map<array<int,2>,Stats> globalStats;
 map<int,Town> TOWNMAP;
 std::vector<Edge> roads; //initialize an array of pointers to Edge objects
 

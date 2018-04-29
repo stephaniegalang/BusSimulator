@@ -55,6 +55,7 @@ void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
         //handle passenger updates
         //IF passenger is @ destination
             //update travel statistics
+                //update sum and mean travel time for this start/end pair
             //delete passenger
             //--totalPassengers
     //Schedule departure for bus (offset by waitTime) and return it
