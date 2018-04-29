@@ -27,7 +27,7 @@ std::map <int, int> fwdingTable(int** country, int townID){
         distances[i] = INT_MAX;
         visitedTowns[i] = false;
     }
-    distances[townID - 1] = 0; // TODO: if towns start at 1, -1
+    distances[townID - 1] = 0; // Towns min ID is 1, correct indexing
     nextNode[townID - 1] = 0;
 
     // Calculate shortest paths + closest next node in path for each node
@@ -47,14 +47,19 @@ std::map <int, int> fwdingTable(int** country, int townID){
         // Mark next closest town as visited
         visitedTowns[min_index] = true;
 
-
-        int firstvisit = 0;
+        // Update distance table, create forwarding table
         for (int j = 0; j < numTowns; j++) {
+
+            if (j == townID - 1) nextNode[j] = - 1; // If node is self, mark next node as 0
             if ((!visitedTowns[j] && country[min_index][j]) && (distances[min_index] != INT_MAX) && ((distances[min_index] + country[min_index][j]) < distances[j])) {
-                ++firstvisit;
                 distances[j] = (distances[min_index] + country[min_index][j]);
-                if (min_index == 0) { nextNode[j] = j; } else { nextNode[j] = min_index;}
+                if (townID - 1 == min_index) { // send directly connected nodes directly
+                    nextNode[j] = j;
+                } else {
+                    nextNode[j] = min_index; // send indirectly connected nodes to next node on shortest path
+                }
             }
+
         }
     }
 
@@ -74,12 +79,10 @@ std::map <int, int> fwdingTable(int** country, int townID){
     //Debugging purposes, print forwarding table via nextNode array
      printf("---Fwding Table Calc for node %d---\n", townID);
     for (int i = 0; i < numTowns; i++) {
-        printf("next node %d: %d\n", i, nextNode[i]);
+        printf("next node %d: %d\n", i + 1, nextNode[i] + 1);
     }
 
-
     return fwdTable;
-
 }
 
 #endif //BUSSIMULATOR_ALGORITHM_H
