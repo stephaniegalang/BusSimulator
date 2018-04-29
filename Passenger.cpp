@@ -16,6 +16,9 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(1, NUMTOWNS);
     dest = dis(gen);
+    if(TownID == dest){
+        dest = dis(gen);
+    }
 
     //TODO: generate nextStop from forwarding tables
     // temp nextStop set to 0

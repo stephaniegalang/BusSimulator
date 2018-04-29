@@ -1,4 +1,5 @@
 #include "Inputs.h"
+#include <random>
 
 int main() {
     //TODO: Try to fix so they work in Inputs.h
@@ -21,11 +22,23 @@ int main() {
     for (int i = 0; i < townArray.size(); ++i)
         (townArray.at(i)).generateForwardingTable(countryIN);
 
-    // ------------------ Dynamically generate edges ---------------------------------
+    // ------------------ Dynamically generate edges ----------------------------------------------
     for (int i = 0; i < townConnections.size(); ++i) {
         for (int j = 0; j < sizeof(townConnections.at(i)); ++j)
             if ((townConnections.at(i))[j] != 0)
                 roads.push_back(Edge((townConnections.at(i))[j], i, j));
+    }
+
+    // ------------------- Generate numPassenger many passengers ----------------------------------
+    int numPassenger = 20;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    for (int i = 0; i < numPassenger; ++i){
+        std::uniform_int_distribution<> dis(1, NUMTOWNS);
+        int origin = dis(gen);
+        Passenger passGen(origin);
+        townArray.at(origin).addPassenger(passGen);
     }
 
     //int townVerts[2] = {1, 2};
