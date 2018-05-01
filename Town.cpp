@@ -15,8 +15,8 @@ townID{id}, basePop{_basePop}, startProb{_startProb}, connections{connectionsArr
 }
 
 void Town::addPassenger(Passenger* pass) {
-    cout<<townID<<" Adding passenger. Next stop: "<< pass->getNextStop() <<endl;
-    destinationQueues[pass->getNextStop()].push(pass);
+    cout<<townID<<" Adding passenger. Next stop: "<< getNextNode(pass->getDest())<<endl;
+    destinationQueues[getNextNode(pass->getDest())].push(pass);
 }
 
 int* Town::getConnections() {
@@ -32,37 +32,52 @@ int Town::getNextNode(int destID) {
     return forwardingTable[destID];
 }
 
-// Moves a bus of passengers from a queue into this town's queues
-//TODO: delete
-void Town::movePassengers(queue<Passenger*> &departures, int numPass) {
-    for (int i=0; i<numPass && !departures.empty(); i++){
-        Passenger* pass=departures.front();
-        if (townID==pass->getDest())
-            cout<<"Reached dest!"<<endl;// TODO What happens when a passenger reaches destination? (record time taken, start and end nodes, and destroy object)
-        else {
-            pass->move(); //Updates internal passenger values
-            //curentPop++;  //Update population (for dynamic traffic)
-            destinationQueues[pass->getNextStop()].push(pass); //push passenger into the queue
+//TODO: Test arrival
+Event Town::processArrival(Event ev) {
+    std::vector<Passenger*> &bus = ev.bus.passengers; //pull passengers off bus
+    while(!(bus.empty())){
+        Passenger* pass=bus.back(); //Pulls passenger off bus
+        bus.pop_back();//Removes passenger from bus
+        if (townID==pass->getDest()) { //IF passenger is @ destination
+            cout << "Reached dest!" << endl;
+            Stats &tmp = globalStats[{pass->getOrig(),pass->getDest()}];//update travel statistics
+            tmp.avg=tmp.avg*tmp.sum+(ev.time-pass->getStartTime()); //Update avg
+            tmp.sum++; //Update total
+            delete(pass); //Delete passenger (Decrements numPassengers)
         }
-        departures.pop();//Removes passenger from previous stop queue
+        else { //Updates internal passenger values
+            destinationQueues[getNextNode(pass->getDest())].push(pass); // moves passengers into destination queues
+        }
+        //TODO: Check if this actually removes the element
     }
+    return Event{ev.time+waitTime,ev.townID,ev.nextTownID,ev.bus,Departing}; //set up departure
 }
-
-//TODO: Arrival
-    //pull passengers off bus
-        // moves passengers into destination queues
-        // make sure bus seats are empty (set bus contents to nulls))
-        //handle passenger updates
-        //IF passenger is @ destination
-            //update travel statistics
-                //update sum and mean travel time for this start/end pair
-            //delete passenger
-            //--totalPassengers
-    //Schedule departure for bus (offset by waitTime) and return it
 
 //TODO: departure
     //populate bus from corresponding destinationQueue
     //schedule arrival (at opposite node) and return it
         //switch townID and nextTownID
         //offset by edge delay
+Event Town::processDeparture(Event ev ){
 
+    auto thisQueue = destinationQueues[ev.nextTownID];
+    for(int i = 0 ; i < ev.bus.getCapacity(); ++i){//move passengers from destination queue to bus array
+        if (thisQueue.front() != nullptr) {
+            Passenger *thisGuy = thisQueue.front();
+            ev.bus.passengers.at(i) = thisGuy;
+            thisQueue.pop();
+        }
+    }
+
+    auto edgeTime = EDGEMAP[{ev.nextTownID, ev.townID}].getDuration();
+
+    Event arrivalEvent;
+
+    arrivalEvent.time = edgeTime;
+    arrivalEvent.townID = ev.nextTownID;
+    arrivalEvent.nextTownID = ev.townID;
+    arrivalEvent.bus = ev.bus;
+    arrivalEvent.eventType = Arriving;
+
+    return(arrivalEvent);
+}
