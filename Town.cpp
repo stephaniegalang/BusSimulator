@@ -41,8 +41,7 @@ Event Town::processArrival(Event ev) {
         if (townID==pass->getDest()) { //IF passenger is @ destination
             cout << "Reached dest!" << endl;
             Stats &tmp = globalStats[{pass->getOrig(),pass->getDest()}];//update travel statistics
-            tmp.avg=tmp.avg*tmp.sum+(ev.time-pass->getStartTime()); //Update avg
-            tmp.sum++; //Update total
+            tmp.avg=(tmp.avg*tmp.numPas+(ev.time-pass->getStartTime()))/(++tmp.numPas); //Update avg and total passengers
             delete(pass); //Delete passenger (Decrements numPassengers)
         }
         else { //Updates internal passenger values
@@ -53,31 +52,19 @@ Event Town::processArrival(Event ev) {
     return Event{ev.time+waitTime,ev.townID,ev.nextTownID,ev.bus,Departing}; //set up departure
 }
 
-//TODO: departure
-    //populate bus from corresponding destinationQueue
-    //schedule arrival (at opposite node) and return it
-        //switch townID and nextTownID
-        //offset by edge delay
+//TODO: Test departure
 Event Town::processDeparture(Event ev ){
 
-    auto thisQueue = destinationQueues[ev.nextTownID];
+    auto thisQueue = destinationQueues[ev.nextTownID]; //get departing queue
     for(int i = 0 ; i < ev.bus.getCapacity(); ++i){//move passengers from destination queue to bus array
-        if (thisQueue.front() != nullptr) {
-            Passenger *thisGuy = thisQueue.front();
-            ev.bus.passengers.at(i) = thisGuy;
-            thisQueue.pop();
-        }
+        if (thisQueue.empty()) break; //If no people waiting, stop loading
+        ev.bus.passengers.push_back(thisQueue.front()); //Move passenger to bus
+        thisQueue.pop(); //Remove passenger from stop
     }
 
-    auto edgeTime = EDGEMAP[{ev.nextTownID, ev.townID}].getDuration();
+    auto edgeTime = EDGEMAP[{ev.nextTownID, ev.townID}].getDuration(); // get travel time to next town (from this node to that)
 
-    Event arrivalEvent;
-
-    arrivalEvent.time = edgeTime;
-    arrivalEvent.townID = ev.nextTownID;
-    arrivalEvent.nextTownID = ev.townID;
-    arrivalEvent.bus = ev.bus;
-    arrivalEvent.eventType = Arriving;
+    Event arrivalEvent{ev.time+edgeTime,ev.nextTownID,ev.townID,ev.bus,Arriving}; //Create next arrival event, swap townID and NextTownID
 
     return(arrivalEvent);
 }

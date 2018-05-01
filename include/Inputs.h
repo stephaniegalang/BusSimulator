@@ -25,7 +25,7 @@ int numPassengers=0;
 std::vector<Edge> roads; //initialize an array of pointers to Edge objects
 
 auto compare=[] (Event l, Event r){return (l.time) > (r.time);};
-priority_queue<Event,vector<Event>, decltype(compare)> eventList;
+priority_queue<Event,vector<Event>, decltype(compare)> eventList();
 
 /*** BEGIN AREAS THAT CAN BE EDITED ***/
 // Enter as many connections as there are towns. Array should be numTowns long. Refer to documentation for input details
