@@ -18,7 +18,7 @@ Passenger::Passenger(int TownID, int creationT): origin{TownID}, creationTime(cr
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(1, numTowns);
     dest = dis(gen);
-    if(TownID == dest){
+    while(TownID == dest){
         dest = dis(gen);
     }
 
@@ -27,10 +27,10 @@ Passenger::Passenger(int TownID, int creationT): origin{TownID}, creationTime(cr
 
 }
 Passenger::~Passenger() {
-    delete(&origin);
-    delete(&dest);
-    delete(&currentStop);
-    delete(&creationTime);
+    //delete(&origin);
+    //delete(&dest);
+    //delete(&currentStop);
+    //delete(&creationTime);
     numPassengers--;
 }
 

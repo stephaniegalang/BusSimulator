@@ -28,7 +28,7 @@ int main() {
         for (int j = 0; j < numTowns; ++j){ //For each pair of towns...
             if ((townConnections.at(i))[j] != 0) { //If there is a connection...
                 auto tmpEdge = Edge((townConnections.at(i))[j], i + 1, j + 1); //Generate an edge
-                EDGEMAP.at({i + 1, j + 1}) = tmpEdge; //Add the edge to the map
+                EDGEMAP[{i + 1, j + 1}] = tmpEdge; //Add the edge to the map
                 if (!EDGEMAP.count({j+1,i+1})){ //If this is the first edge between these two towns...
                     int offset=tmpEdge.getDuration()/tmpEdge.getBusCount(); //Generate a duration to offset the buses by
                     for (int num=0;num < tmpEdge.getBusCount();num++){ //For each bus on this edge, generate an event with the appropriate offset (subsequent events will be generated automatically)
@@ -69,6 +69,7 @@ int main() {
         //delete(&ev); //Delete ev
         //total time taken = time of last event processed;
     }
+    cout<<"fffff"<<globalStats[{1,2}].avg<<endl;
 
     // ------------------- Deallocation ----------------------------------
     delete [] countryIN;
