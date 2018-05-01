@@ -1,5 +1,6 @@
 #include "Inputs.h"
 #include <random>
+#include "Stats.h"
 
 int main() {
 
@@ -28,7 +29,8 @@ int main() {
             if ((townConnections.at(i))[j] != 0) {
                 //auto v =vector<int>(i+1,j+1);
                 EDGEMAP[{i+1,j+1}]=Edge((townConnections.at(i))[j], i+1, j+1);
-                //EDGEMAP.emplace(vector<int>(i,j), roads.back());
+                //TODO: populate globalStats w/ initial values for each pair
+                globalStats[{i+1, j+1}] = Stats{.avg = 0, .sum = 0};
             }
 
     }
@@ -45,22 +47,40 @@ int main() {
         TOWNMAP[origin].addPassenger(tmpPass);
     }
 
-    //TODO: populate globalStats w/ initial values for each pair
+    // ------------------- Actual Simulation Loop ----------------------------------
 
-    //TODO: generate an initial event for each bus.
+
+        //TODO: populate globalStats w/ initial values for each pair (done above)
+
+        //TODO: generate an initial event for each bus (only allow one bus per edge rn)
+        // Grab all edges from EDGEMAP key, assume EDGEMAP only has one way edges
+    std::vector<Bus> busVec;
+    for(map<array<int,2>,Edge>::iterator it = EDGEMAP.begin(); it != EDGEMAP.end(); ++it) {
+        busVec.emplace_back(Bus(busCapacity)); // Build as many buses as connections between nodes
+        eventList.push(Event{.eventType = Departing, .townID = (it->first)[0], .nextTownID = (it->first)[1], .bus = busVec.back(), .time = 0}) // Walk through each EDGEMAP key to get start, end nodes, initialize to departing
+        // Place into corresponding town queues?
+    }
+
         //offset=delay*2/numBuses
         //Departures to start
 
-    //TODO: Event handler loop
+        //TODO: Event handler loop
+    while (numPassengers != 0) {
+
+        for (int i = 0; i < TOWNMAP.size(); ++i) {
+
+        }
+        //Loop through each town, check queue
         //while(numPassenger>0)...
         //process next event in queue
-            //get town from townID
-            //calls appropriate function on town based on event type (pass in event object)
-            //DESTROY EVENT
-            //add returned event to queue
+        //get town from townID
+        //calls appropriate function on town based on event type (pass in event object)
+        //DESTROY EVENT
+        //add returned event to queue
         //total time taken = time of last event processed;
+    }
 
-
+    // ------------------- Deallocation ----------------------------------
     delete [] countryIN;
     return 0;
 }

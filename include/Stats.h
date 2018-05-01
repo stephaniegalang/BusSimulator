@@ -5,6 +5,9 @@
 #ifndef BUSSIMULATOR_STATS_H
 #define BUSSIMULATOR_STATS_H
 #include <map>
+
+extern int numPassengers;
+
 struct Stats{
     int sum;
     float avg;

@@ -24,7 +24,7 @@ map<int,Town> TOWNMAP;
 std::vector<Edge> roads; //initialize an array of pointers to Edge objects
 
 auto compare=[] (Event l, Event r){return (l.time) > (r.time);};
-priority_queue<Event,vector<Event>, decltype(compare)> eventList();
+priority_queue<Event,vector<Event>, decltype(compare)> eventList;
 
 /*** BEGIN AREAS THAT CAN BE EDITED ***/
 // Enter as many connections as there are towns. Array should be numTowns long. Refer to documentation for input details
@@ -37,15 +37,19 @@ std::vector<std::array<int, 4>> townConnections {
         {0, 2, 0, 0}
 };
 
-int numPassengersTown1 = 4;
-int numPassengersTown2 = 4;
-int numPassengersTown3 = 4;
-int numPassengersTown4 = 4;
+std::vector<int> numPassengersTown {
+    4,
+    4,
+    4,
+    4
+};
 
-// Generate Buses
-Bus Route1_2_1(40);  //Format: Route<startNode>_<endNode>_<busNum>
-Bus Route3_2_1(40);
-Bus Route4_2_1(40);
+// Generate Bus capacity
+int busCapacity = 40;
+//Bus Route1_2_1(40);  //Format: Route<startNode>_<endNode>_<busNum>
+//Bus Route3_2_1(40);
+//Bus Route4_2_1(40);
+//int numBuses = 3;
 
 /*** END AREAS THAT CAN BE EDITED ***/
 
