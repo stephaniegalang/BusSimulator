@@ -15,4 +15,5 @@ struct Stats{
 extern std::map<std::array<int,2>,Stats> globalStats;
 
 
+
 #endif //BUSSIMULATOR_STATS_H

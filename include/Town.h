@@ -8,6 +8,8 @@
 #include <map>
 #include "Passenger.h"
 #include "EdgeMap.h"
+#include "Event.h"
+#include "Stats.h"
 
 extern unsigned const int numTowns;
 // Forward Declarations from Algorithm
@@ -18,6 +20,7 @@ using namespace std;
 
  class Town {
  private:
+     int waitTime=5;
      int basePop;
      //int curentPop;
      double startProb; //likelihood of passenger spawning here at a given time (poisson distribution?)
@@ -59,6 +62,9 @@ using namespace std;
      void generateForwardingTable(int** country);
      //int getNextNode();
      int getNextNode(int destID);//used by passenger to get next node
+
+     Event processArrival(Event ev);
+     Event processDeparture(Event ev);
 
 
 };

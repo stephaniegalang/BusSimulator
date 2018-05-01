@@ -21,6 +21,7 @@ std::vector<Town> townArray;
 map<array<int,2>,Edge> EDGEMAP;
 map<array<int,2>,Stats> globalStats;
 map<int,Town> TOWNMAP;
+int numPassengers=0;
 std::vector<Edge> roads; //initialize an array of pointers to Edge objects
 
 auto compare=[] (Event l, Event r){return (l.time) > (r.time);};

@@ -12,7 +12,7 @@ class Town; // Forward declare town to allow use of town's path forwarding table
 
 
 // Passenger initialized in a specific town
-Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
+Passenger::Passenger(int TownID, int creationT): origin{TownID}, creationTime(creationT) {
     //Generate random destination; Reference: http://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -23,21 +23,25 @@ Passenger::Passenger(int TownID): origin{TownID}, travelTime(0) {
     }
 
     currentStop=origin;
-    nextStop = TOWNMAP.at(origin).getNextNode(dest);
+    numPassengers++;
 
 }
-
-void Passenger::move(){
-    travelTime += EDGEMAP[{currentStop,nextStop}].getDuration(); // update time travelled from edge's travel time
-    currentStop=nextStop;
-    nextStop=TOWNMAP[currentStop].getNextNode(dest);
+Passenger::~Passenger() {
+    delete(&origin);
+    delete(&dest);
+    delete(&currentStop);
+    delete(&creationTime);
+    numPassengers--;
 }
 
-int Passenger::getNextStop(){
-    //return (path.at(path.end() + 0)).getEndTown();
-    return nextStop;
-}
 
+
+int Passenger::getOrig(){
+    return origin;
+}
 int Passenger::getDest(){
     return dest;
+}
+int Passenger::getStartTime() {
+    return creationTime;
 }

@@ -11,19 +11,19 @@ class Passenger {
     private:
         int origin;
         int dest;
-        int travelTime;
         int currentStop;
-        int nextStop;
+        int creationTime;
 
     public:
 
-        explicit Passenger(int TownID);
+        explicit Passenger(int TownID, int creationT=0);
+        ~Passenger();
         // void decideOrigin(); Do this in town, then pass in ID
 
         //below fcn is glitching out, should be void but believes my move fcn returns an int?
-        void move(); //Must be called right as town sends passenger to new town; adds edge duration to travel time, update nextStop
-        int getNextStop();
+        int getOrig();
         int getDest();
+        int getStartTime();
 
 
 };
