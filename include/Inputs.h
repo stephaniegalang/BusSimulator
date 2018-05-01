@@ -22,6 +22,7 @@ map<array<int,2>,Edge> EDGEMAP;
 map<array<int,2>,Stats> globalStats;
 map<int,Town> TOWNMAP;
 int numPassengers=0;
+int pasToGenerate = 200;
 std::vector<Edge> roads; //initialize an array of pointers to Edge objects
 
 auto compare=[] (Event l, Event r){return (l.time) > (r.time);};
@@ -32,33 +33,15 @@ priority_queue<Event,vector<Event>, decltype(compare)> eventList(compare);
 unsigned const int numTowns = 4;
 
 std::vector<std::array<int, 4>> townConnections {
-        {0, 3, 0, 0},
-        {3, 0, 1, 2},
-        {0, 1, 0, 0},
-        {0, 2, 0, 0}
+        {0, 30, 0, 0},
+        {30, 0, 10, 20},
+        {0, 10, 0, 0},
+        {0, 20, 0, 0}
 };
 
-std::vector<int> numPassengersTown {
-    4,
-    4,
-    4,
-    4
-};
 
 // Generate Bus capacity
 int busCapacity = 40;
-//Bus Route1_2_1(40);  //Format: Route<startNode>_<endNode>_<busNum>
-//Bus Route3_2_1(40);
-//Bus Route4_2_1(40);
-//int numBuses = 3;
-
-/*** END AREAS THAT CAN BE EDITED ***/
-
-/* Place inputs into arrays to allow dynamic initialization based on number */
-struct Thing {
-    int m_i, m_j;
-    Thing(int i, int j) : m_i(i), m_j(j) {}
-};
 
 
 #endif //BUSSIMULATOR_INPUTS_H

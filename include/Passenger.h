@@ -11,13 +11,11 @@ class Passenger {
     private:
         int origin;
         int dest;
-        int currentStop;
         int creationTime;
 
     public:
 
-        explicit Passenger(int TownID, int creationT=0);
-        ~Passenger();
+        explicit Passenger(int orig, int creationT=0);
         // void decideOrigin(); Do this in town, then pass in ID
 
         //below fcn is glitching out, should be void but believes my move fcn returns an int?

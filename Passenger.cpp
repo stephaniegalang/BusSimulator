@@ -6,6 +6,7 @@
 #include <random>
 #include "EdgeMap.h"
 #include "TownMap.h"
+#include <iostream>
 
 class Town; // Forward declare town to allow use of town's path forwarding table
 //extern unsigned int numTowns;
@@ -21,17 +22,9 @@ Passenger::Passenger(int TownID, int creationT): origin{TownID}, creationTime(cr
     while(TownID == dest){
         dest = dis(gen);
     }
-
-    currentStop=origin;
     numPassengers++;
+    if (origin==1)cout<<dest<<endl;
 
-}
-Passenger::~Passenger() {
-    //delete(&origin);
-    //delete(&dest);
-    //delete(&currentStop);
-    //delete(&creationTime);
-    numPassengers--;
 }
 
 

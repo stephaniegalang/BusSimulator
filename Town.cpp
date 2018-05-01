@@ -15,7 +15,7 @@ townID{id}, basePop{_basePop}, startProb{_startProb}, connections{connectionsArr
 }
 
 void Town::addPassenger(Passenger* pass) {
-    cout<<townID<<" Adding passenger. Next stop: "<< getNextNode(pass->getDest())<<endl;
+    cout<<townID<<" Adding passenger. Dest: "<< pass->getDest()<<endl;
     destinationQueues[getNextNode(pass->getDest())].push(pass);
 }
 
@@ -34,15 +34,17 @@ int Town::getNextNode(int destID) {
 
 //TODO: Test arrival
 Event Town::processArrival(Event ev) {
-    std::vector<Passenger*> &bus = ev.bus->passengers; //pull passengers off bus
-    while(!(bus.empty())){
-        Passenger* pass=bus.back(); //Pulls passenger off bus
-        bus.pop_back();//Removes passenger from bus
+    std::vector<Passenger*> &seats = ev.bus->passengers; //pull passengers off bus
+    while(!(seats.empty())){
+        Passenger* pass=seats.back(); //Pulls passenger off bus
+        seats.pop_back();//Removes passenger from bus
         if (townID==pass->getDest()) { //IF passenger is @ destination
-            cout << "Reached dest!" << endl;
+            cout<<pass->getOrig()<<" to "<< pass->getDest()<<endl; //output success message (orig to dest)
             Stats &tmp = globalStats[{pass->getOrig(),pass->getDest()}];//update travel statistics
-            tmp.avg=(tmp.avg*tmp.numPas+(ev.time-pass->getStartTime()))/(++tmp.numPas); //Update avg and total passengers
-            delete(pass); //Delete passenger (Decrements numPassengers)
+            tmp.runningSum+=ev.time-pass->getStartTime(); //Update avg and total passengers
+            tmp.numPas++;
+            //delete[] pass; //WHEN CALLED, EXECUTES DESCRUCTOR MULTIPLE TIMES
+            numPassengers--;
         }
         else { //Updates internal passenger values
             destinationQueues[getNextNode(pass->getDest())].push(pass); // moves passengers into destination queues

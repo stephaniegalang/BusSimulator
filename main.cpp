@@ -3,7 +3,7 @@
 #include "Stats.h"
 
 int main() {
-
+    int COUNTER=0;
     // Dynamically generate towns
     for (int i = 1; i <= numTowns; ++i) {
         TOWNMAP.emplace(i,Town(i, townConnections.at(i - 1).data(), numTowns, 10, .25));
@@ -32,7 +32,7 @@ int main() {
                 if (!EDGEMAP.count({j+1,i+1})){ //If this is the first edge between these two towns...
                     int offset=tmpEdge.getDuration()/tmpEdge.getBusCount(); //Generate a duration to offset the buses by
                     for (int num=0;num < tmpEdge.getBusCount();num++){ //For each bus on this edge, generate an event with the appropriate offset (subsequent events will be generated automatically)
-                        eventList.push(Event{num*offset, i+1, j+1, new Bus(), Departing});
+                        eventList.push(Event{num*offset, i+1, j+1, new Bus(busCapacity), Departing});
                     }
                 }
             }
@@ -43,15 +43,15 @@ int main() {
     }
 
     // ------------------- Generate numPassenger many passengers ----------------------------------
-    int numPassenger = 20;
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    for (int i = 0; i < numPassenger; ++i){
+    for (int i = 0; i < pasToGenerate; ++i){
         std::uniform_int_distribution<> dis(1, numTowns);
         int origin = dis(gen);
         auto tmpPass=new Passenger(origin);
         TOWNMAP[origin].addPassenger(tmpPass);
+        if (origin==1) COUNTER++;
     }
 
     // ------------------- Actual Simulation Loop ----------------------------------
@@ -69,8 +69,9 @@ int main() {
         //delete(&ev); //Delete ev
         //total time taken = time of last event processed;
     }
-    cout<<"fffff"<<globalStats[{1,2}].avg<<endl;
-
+    cout<<globalStats[{1,2}].runningSum<<", "<<globalStats[{1,3}].runningSum<<", "<<globalStats[{1,4}].runningSum<<endl;
+    cout<<globalStats[{1,2}].numPas<<", "<<globalStats[{1,3}].numPas<<", "<<globalStats[{1,4}].numPas<<endl;
+    cout<<COUNTER<<endl;
     // ------------------- Deallocation ----------------------------------
     delete [] countryIN;
     return 0;

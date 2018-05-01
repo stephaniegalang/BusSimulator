@@ -10,7 +10,7 @@ extern int numPassengers;
 
 struct Stats{
     int numPas;
-    float avg;
+    long runningSum;
 };
 extern std::map<std::array<int,2>,Stats> globalStats;
 
