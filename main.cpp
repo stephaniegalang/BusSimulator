@@ -56,28 +56,17 @@ int main() {
 
     // ------------------- Actual Simulation Loop ----------------------------------
 
-
-        //TODO: populate globalStats w/ initial values for each pair (done above)
-
-        //TODO: generate an initial event for each bus (only allow one bus per edge rn)
-        // Grab all edges from EDGEMAP key, assume EDGEMAP only has one way edges
-
-        //offset=delay*2/numBuses
-        //Departures to start
-
         //TODO: Event handler loop
-    while (numPassengers != 0) {
-
-        for (int i = 0; i < TOWNMAP.size(); ++i) {
-
+    while (numPassengers > 0) {
+        Event ev = eventList.top(); //get next event
+        eventList.pop(); //Remove from queue
+        Town t = TOWNMAP[ev.townID];
+        if (ev.eventType==Arriving){ //if Arriving
+            eventList.push(t.processArrival(ev));
+        }else{
+            eventList.push(t.processDeparture(ev));
         }
-        //Loop through each town, check queue
-        //while(numPassenger>0)...
-        //process next event in queue
-        //get town from townID
-        //calls appropriate function on town based on event type (pass in event object)
-        //DESTROY EVENT
-        //add returned event to queue
+        //delete(&ev); //Delete ev
         //total time taken = time of last event processed;
     }
 
