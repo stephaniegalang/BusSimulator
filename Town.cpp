@@ -34,7 +34,7 @@ int Town::getNextNode(int destID) {
 
 //TODO: Test arrival
 Event Town::processArrival(Event ev) {
-    std::vector<Passenger*> &bus = ev.bus.passengers; //pull passengers off bus
+    std::vector<Passenger*> &bus = ev.bus->passengers; //pull passengers off bus
     while(!(bus.empty())){
         Passenger* pass=bus.back(); //Pulls passenger off bus
         bus.pop_back();//Removes passenger from bus
@@ -56,13 +56,13 @@ Event Town::processArrival(Event ev) {
 Event Town::processDeparture(Event ev ){
 
     auto thisQueue = destinationQueues[ev.nextTownID]; //get departing queue
-    for(int i = 0 ; i < ev.bus.getCapacity(); ++i){//move passengers from destination queue to bus array
+    for(int i = 0 ; i < ev.bus->getCapacity(); ++i){//move passengers from destination queue to bus array
         if (thisQueue.empty()) break; //If no people waiting, stop loading
-        ev.bus.passengers.push_back(thisQueue.front()); //Move passenger to bus
+        ev.bus->passengers.push_back(thisQueue.front()); //Move passenger to bus
         thisQueue.pop(); //Remove passenger from stop
     }
 
-    auto edgeTime = EDGEMAP[{ev.nextTownID, ev.townID}].getDuration(); // get travel time to next town (from this node to that)
+    auto edgeTime = EDGEMAP.at({ev.nextTownID, ev.townID}).getDuration(); // get travel time to next town (from this node to that)
 
     Event arrivalEvent{ev.time+edgeTime,ev.nextTownID,ev.townID,ev.bus,Arriving}; //Create next arrival event, swap townID and NextTownID
 

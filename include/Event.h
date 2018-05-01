@@ -11,7 +11,7 @@ enum Mode{Arriving,Departing};
 struct Event{
     long time;
     int townID, nextTownID;
-    Bus &bus; //TODO: test
+    Bus *bus; //TODO: test
     Mode eventType;
 };
 #endif //BUSSIMULATOR_EVENT_H
