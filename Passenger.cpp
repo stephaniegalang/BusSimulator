@@ -23,8 +23,6 @@ Passenger::Passenger(int TownID, int creationT): origin{TownID}, creationTime(cr
         dest = dis(gen);
     }
     numPassengers++;
-    if (origin==1)cout<<dest<<endl;
-
 }
 
 

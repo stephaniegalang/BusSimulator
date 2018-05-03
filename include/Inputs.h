@@ -6,6 +6,7 @@
 #define BUSSIMULATOR_INPUTS_H
 
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include "Town.h"
 #include "Edge.h"

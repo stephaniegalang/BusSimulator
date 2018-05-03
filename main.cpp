@@ -3,6 +3,8 @@
 #include "Stats.h"
 
 int main() {
+    cout.setf(ios::fixed);
+    cout<<setprecision(1)<<endl;
     int COUNTER=0;
     // Dynamically generate towns
     for (int i = 1; i <= numTowns; ++i) {
@@ -51,7 +53,6 @@ int main() {
         int origin = dis(gen);
         auto tmpPass=new Passenger(origin);
         TOWNMAP[origin].addPassenger(tmpPass);
-        if (origin==1) COUNTER++;
     }
 
     // ------------------- Actual Simulation Loop ----------------------------------
@@ -60,7 +61,7 @@ int main() {
     while (numPassengers > 0) {
         Event ev = eventList.top(); //get next event
         eventList.pop(); //Remove from queue
-        Town t = TOWNMAP[ev.townID];
+        Town &t = TOWNMAP[ev.townID];
         if (ev.eventType==Arriving){ //if Arriving
             eventList.push(t.processArrival(ev));
         }else{
@@ -69,9 +70,18 @@ int main() {
         //delete(&ev); //Delete ev
         //total time taken = time of last event processed;
     }
-    cout<<globalStats[{1,2}].runningSum<<", "<<globalStats[{1,3}].runningSum<<", "<<globalStats[{1,4}].runningSum<<endl;
-    cout<<globalStats[{1,2}].numPas<<", "<<globalStats[{1,3}].numPas<<", "<<globalStats[{1,4}].numPas<<endl;
-    cout<<COUNTER<<endl;
+
+    cout<<"\n\nAvgerage travel times between cities:\n"<<endl<<setw(8);
+    for (int j=1; j<=numTowns;j++)
+        cout<<j<<setw(8);
+    cout<<endl<<setw(0);
+    for(int i = 1; i<=numTowns;i++){
+        cout<<i<<setw(8);
+        for (int j=1; j<=numTowns;j++)
+            cout<<(float)(globalStats[{i,j}].runningSum)/(globalStats[{i,j}].numPas)<<setw(8);
+        cout<<endl<<setw(0);
+    }
+
     // ------------------- Deallocation ----------------------------------
     delete [] countryIN;
     return 0;

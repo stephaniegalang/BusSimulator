@@ -32,32 +32,32 @@ int Town::getNextNode(int destID) {
     return forwardingTable[destID];
 }
 
-//TODO: Test arrival
 Event Town::processArrival(Event ev) {
+    cout<<ev.time<<"\t"<<ev.bus<<" arriving from "<<ev.nextTownID<<" to "<<ev.townID<<" with "<<ev.bus->passengers.size()<<" passengers"<<endl;
     std::vector<Passenger*> &seats = ev.bus->passengers; //pull passengers off bus
     while(!(seats.empty())){
         Passenger* pass=seats.back(); //Pulls passenger off bus
         seats.pop_back();//Removes passenger from bus
         if (townID==pass->getDest()) { //IF passenger is @ destination
-            cout<<pass->getOrig()<<" to "<< pass->getDest()<<endl; //output success message (orig to dest)
+            //cout<<pass<<" to "<< pass->getDest()<<endl; //output success message (orig to dest)
             Stats &tmp = globalStats[{pass->getOrig(),pass->getDest()}];//update travel statistics
             tmp.runningSum+=ev.time-pass->getStartTime(); //Update avg and total passengers
             tmp.numPas++;
-            //delete[] pass; //WHEN CALLED, EXECUTES DESCRUCTOR MULTIPLE TIMES
+            delete[] pass;
             numPassengers--;
         }
         else { //Updates internal passenger values
             destinationQueues[getNextNode(pass->getDest())].push(pass); // moves passengers into destination queues
         }
-        //TODO: Check if this actually removes the element
     }
     return Event{ev.time+waitTime,ev.townID,ev.nextTownID,ev.bus,Departing}; //set up departure
 }
 
-//TODO: Test departure
-Event Town::processDeparture(Event ev ){
 
-    auto thisQueue = destinationQueues[ev.nextTownID]; //get departing queue
+Event Town::processDeparture(Event ev ){
+    cout<<ev.time<<"\t"<<ev.bus<<" leaving  from "<<ev.townID<<" to "<<ev.nextTownID<<endl;
+
+    auto &thisQueue = destinationQueues[ev.nextTownID]; //get departing queue
     for(int i = 0 ; i < ev.bus->getCapacity(); ++i){//move passengers from destination queue to bus array
         if (thisQueue.empty()) break; //If no people waiting, stop loading
         ev.bus->passengers.push_back(thisQueue.front()); //Move passenger to bus
